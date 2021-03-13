@@ -1,20 +1,18 @@
-const {
-  ERROR_MONGOOSE_VALIDATE,
-  NOT_FOUND,
-} = require("../constants/errorCodeConstant");
+const mongoose = require("mongoose");
+const { ERROR_MONGOOSE_VALIDATE } = require("../constants/errorCodeConstant");
+const responseError = require("./responseError");
 
 /*
   MongoDB Validation Error Handler
 */
 exports.mongooseErrors = (err, req, res, next) => {
-  if (!err.errors) return next(err);
-  res.status(400).send({
-    error: {
-      code: ERROR_MONGOOSE_VALIDATE,
-      message: err.errors[Object.keys(err.errors)[0]].message,
-      status: 400,
-    },
-  });
+  if (!err instanceof mongoose.Error.ValidationError) return next(err);
+
+  console.log(err);
+  const message = Object.keys(err.errors)
+    .map((field) => err.errors[field].message)
+    .join(" | ");
+  responseError(res, message, ERROR_MONGOOSE_VALIDATE, 400);
 };
 
 /*
@@ -46,5 +44,5 @@ exports.productionInternalErrors = (err, req, res, next) => {
   not found any routers
  */
 exports.notFound = (req, res, next) => {
-  res.status(404).send({ error: "Not found" });
+  res.status(404).send({ error: "Not Found" });
 };

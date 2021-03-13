@@ -3,6 +3,8 @@ require("./src/database/mongoose");
 const express = require("express");
 const cors = require("cors");
 const errorHandlers = require("./src/handlers/errorHandler");
+const userRouter = require("./src/routers/userRouter");
+
 const app = express();
 
 //middleware parse request to json and cors
@@ -10,9 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 //route
-app.get("/user", (req, res) => {
-  res.send("con cac");
-});
+app.use("/users", userRouter);
 
 //error handlers
 app.use(errorHandlers.notFound);
@@ -24,3 +24,4 @@ if (process.env.ENV === "DEVELOPMENT") {
 }
 
 module.exports = app;
+
