@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const errorHandlers = require("./src/handlers/errorHandler");
 const userRouter = require("./src/routers/userRouter");
+const User = require("./src/model/User");
 
 const app = express();
 
@@ -24,4 +25,3 @@ if (process.env.ENV === "DEVELOPMENT") {
 }
 
 module.exports = app;
-

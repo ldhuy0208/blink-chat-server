@@ -58,7 +58,7 @@ const userController = {
                 404
               );
             }
-
+            console.log(data.password, user.password)
             if (!bcrypt.compareSync(data.password, user.password)) {
               return responseError(
                 res,
