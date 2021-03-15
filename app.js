@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const errorHandlers = require("./src/handlers/errorHandler");
 const userRouter = require("./src/routers/userRouter");
-const User = require("./src/model/User");
+const conversationRouter = require("./src/routers/conversationRouter");
 
 const app = express();
 
@@ -14,6 +14,7 @@ app.use(cors());
 
 //route
 app.use("/users", userRouter);
+app.use("/conversations", conversationRouter);
 
 //error handlers
 app.use(errorHandlers.notFound);
