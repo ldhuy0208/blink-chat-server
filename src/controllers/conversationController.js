@@ -28,6 +28,11 @@ const conversationController = {
         responseError(res, err.errors.join(" | "), ERROR_VALIDATE);
       });
   },
+
+  getMyConversation: async (req, res, next) => {
+    const list = await Conversation.find({ users: req.user._id });
+    res.send(list);
+  },
 };
 
 module.exports = conversationController;

@@ -21,6 +21,13 @@ const userSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    contacts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        autopopulate: { maxDepth: 1, select: 'name email createdAt updatedAt' },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -49,8 +56,11 @@ userSchema.methods.toJSON = function () {
   const user = this.toObject();
   delete user.password;
   delete user.tokens;
+
   return user;
 };
+
+userSchema.plugin(require("mongoose-autopopulate"));
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
