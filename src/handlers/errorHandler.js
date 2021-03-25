@@ -6,13 +6,14 @@ const responseError = require("./responseError");
   MongoDB Validation Error Handler
 */
 exports.mongooseErrors = (err, req, res, next) => {
-  if (!err instanceof mongoose.Error.ValidationError) return next(err);
+  // if (!err instanceof mongoose.Error.ValidationError) return next(err);
 
-  console.log(err);
-  const message = Object.keys(err.errors)
-    .map((field) => err.errors[field].message)
-    .join(" | ");
-  responseError(res, message, ERROR_MONGOOSE_VALIDATE, 400);
+  console.log(2000);
+  next(err);
+  // const message = Object.keys(err.errors)
+  //   .map((field) => err.errors[field].message)
+  //   .join(" | ");
+  // responseError(res, err, ERROR_MONGOOSE_VALIDATE, 400);
 };
 
 /*

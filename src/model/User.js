@@ -1,6 +1,19 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+conversationSchema = new mongoose.Schema({
+  conversation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Conversation",
+    autopopulate: { maxDepth: 1 },
+  },
+  contact: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    autopopulate: { maxDepth: 1, select: "name email createdAt updatedAt" },
+  },
+});
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -25,7 +38,17 @@ const userSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        autopopulate: { maxDepth: 1, select: 'name email createdAt updatedAt' },
+        autopopulate: { maxDepth: 1, select: "name email createdAt updatedAt" },
+      },
+    ],
+    conversations: {
+      type: conversationSchema,
+    },
+    invitations: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Invitation",
+        autopopulate: { maxDepth: 1 },
       },
     ],
   },

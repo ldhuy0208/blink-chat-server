@@ -5,6 +5,7 @@ const cors = require("cors");
 const errorHandlers = require("./src/handlers/errorHandler");
 const userRouter = require("./src/routers/userRouter");
 const conversationRouter = require("./src/routers/conversationRouter");
+require("./src/model/Invitation");
 
 const app = express();
 

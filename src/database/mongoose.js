@@ -16,4 +16,5 @@ mongoose
 
 mongoose.connection.on("error", (err) => {
   console.log(`${err.name}: ${err.message}`);
+  console.log("1000")
 });
